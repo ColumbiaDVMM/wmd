@@ -1,6 +1,7 @@
-function [] = compute_rwmd(load_file,save_file)
-
-
+function [] = compute_rwmd()
+    
+    load_file = 'twitter_vec.mat';
+    save_file = 'distance.mat';
     addpath('emd')
 
     load(load_file);
@@ -9,7 +10,8 @@ function [] = compute_rwmd(load_file,save_file)
 
     RWMD_D = zeros(n,n);
 
-    parfor i = 1:n
+    for i = 1:n
+        disp(i);
         Ei = zeros(1,n);
         for j = (i+1):n
             if isempty(BOW_X{i}) || isempty(BOW_X{j})
@@ -35,7 +37,5 @@ function [] = compute_rwmd(load_file,save_file)
     RWMD_D = RWMD_D + RWMD_D'; % because only upper triangular part is computed (similar to WMD)
 
     save(save_file,'RMD_D');
-
-
 end
 
